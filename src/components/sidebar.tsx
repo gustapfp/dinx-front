@@ -4,10 +4,10 @@ import {
   LineChart,
   PiggyBank,
   Settings,
-} from "lucide-react"
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
+} from 'lucide-react'
+import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
+import { Separator } from '@/components/ui/separator'
 
 type SidebarItem = {
   label: string
@@ -16,25 +16,24 @@ type SidebarItem = {
 }
 
 const primaryItems: SidebarItem[] = [
-  { label: "Overview", icon: BarChart3, active: true },
-  { label: "Analytics", icon: LineChart },
-  { label: "Expenses", icon: CreditCard },
-  { label: "Investments", icon: PiggyBank },
+  { label: 'Overview', icon: BarChart3, active: true },
+  { label: 'Analytics', icon: LineChart },
+  { label: 'Expenses', icon: CreditCard },
+  { label: 'Investments', icon: PiggyBank },
 ]
 
-const secondaryItems: SidebarItem[] = [{ label: "Settings", icon: Settings }]
+const secondaryItems: SidebarItem[] = [{ label: 'Settings', icon: Settings }]
 
 type SidebarProps = {
   collapsed: boolean
 }
 
 export function Sidebar({ collapsed }: SidebarProps) {
-
   return (
     <aside
       className={cn(
-        "flex h-screen flex-col border-r bg-sidebar text-sidebar-foreground transition-[width] duration-200",
-        collapsed ? "w-16" : "w-64",
+        'flex min-h-screen flex-col border-r bg-sidebar text-sidebar-foreground transition-[width] duration-200',
+        collapsed ? 'w-16' : 'w-64'
       )}
     >
       <div className="flex h-16 items-center gap-2 px-3">
@@ -66,7 +65,11 @@ export function Sidebar({ collapsed }: SidebarProps) {
           )}
           <div className="mt-2 space-y-1">
             {primaryItems.map((item) => (
-              <SidebarNavItem key={item.label} item={item} collapsed={collapsed} />
+              <SidebarNavItem
+                key={item.label}
+                item={item}
+                collapsed={collapsed}
+              />
             ))}
           </div>
         </div>
@@ -79,7 +82,11 @@ export function Sidebar({ collapsed }: SidebarProps) {
           )}
           <div className="mt-2 space-y-1">
             {secondaryItems.map((item) => (
-              <SidebarNavItem key={item.label} item={item} collapsed={collapsed} />
+              <SidebarNavItem
+                key={item.label}
+                item={item}
+                collapsed={collapsed}
+              />
             ))}
           </div>
         </div>
@@ -110,16 +117,16 @@ type SidebarNavItemProps = {
 
 function SidebarNavItem({ item, collapsed }: SidebarNavItemProps) {
   const Icon = item.icon
-  const variant = item.active ? "default" : "ghost"
+  const variant = item.active ? 'default' : 'ghost'
 
   return (
     <Button
       variant={variant}
       size="sm"
       className={cn(
-        "group flex w-full items-center justify-start gap-2 rounded-lg px-3",
-        collapsed && "justify-center px-0",
-        item.active && "bg-sidebar-primary text-sidebar-primary-foreground",
+        'group flex w-full items-center justify-start gap-2 rounded-lg px-3',
+        collapsed && 'justify-center px-0',
+        item.active && 'bg-sidebar-primary text-sidebar-primary-foreground'
       )}
     >
       <Icon className="h-4 w-4" />
@@ -127,4 +134,3 @@ function SidebarNavItem({ item, collapsed }: SidebarNavItemProps) {
     </Button>
   )
 }
-

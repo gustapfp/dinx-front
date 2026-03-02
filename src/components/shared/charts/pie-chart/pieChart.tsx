@@ -124,7 +124,7 @@ export function ChartPieDonut({
             />
             <ChartLegend
               content={<ChartLegendContent nameKey="browser" />}
-              className="w-full  "
+              className="w-full gap-3 *:basis-1/4 *:justify-center"
             />
           </PieChart>
         </ChartContainer>
