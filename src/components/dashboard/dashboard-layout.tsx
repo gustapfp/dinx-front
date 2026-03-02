@@ -4,7 +4,7 @@ import { Moon, PanelLeft, Sun } from "lucide-react"
 import { Sidebar } from "@/components/sidebar"
 import { Button } from "@/components/ui/button"
 import { useTheme } from "@/theme/theme-provider"
-import { PlaceholderCard } from "../shared/cards/placeHolderchart/placeHolderChart"
+import { PlaceholderCard } from "../shared/cards/place-holder-chart/placeHolderChart"
 import { ChartAreaInteractive } from "../shared/area-charts/AreaCharts"
 import { dummyChartAreaData } from "../shared/area-charts/consts"
 
@@ -82,9 +82,16 @@ function DashboardShell() {
       </div>
 
       <div className="grid gap-4 lg:grid-cols-3">
-        <div className="col-span-2 rounded-xl border bg-card p-4 text-card-foreground">
-     
-          <ChartAreaInteractive data={dummyChartAreaData} title="Cashflow" description="Preview of your cashflow" colorArea1="green-800" colorArea2="red-800" />
+        <div className="col-span-2 ">
+          <ChartAreaInteractive
+            data={dummyChartAreaData}
+            title="Cashflow"
+            description="Preview of your cashflow"
+            colorArea1="oklch(44.8% 0.119 151.328)"
+            colorArea2="oklch(50.5% 0.213 27.518)"
+            labelArea1="Income"
+            labelArea2="Expenses"
+          />
         </div>
         <div className="rounded-xl border bg-card p-4 text-card-foreground">
           <h2 className="text-sm font-medium">Upcoming payments</h2>

@@ -28,8 +28,23 @@ export const description = "An interactive area chart"
 
 
 
-export function ChartAreaInteractive(
-    { data, title, description, colorArea1, colorArea2 }: { data: chartAreaData[], title: string, description: string, colorArea1: string, colorArea2: string }) {
+export function ChartAreaInteractive({
+  data,
+  title,
+  description,
+  colorArea1,
+  colorArea2,
+  labelArea1 = "area1",
+  labelArea2 = "area2",
+}: {
+  data: chartAreaData[]
+  title: string
+  description: string
+  colorArea1: string
+  colorArea2: string
+  labelArea1?: string
+  labelArea2?: string
+}) {
   const [timeRange, setTimeRange] = React.useState("90d")
 
   const chartConfig = {
@@ -37,11 +52,11 @@ export function ChartAreaInteractive(
     label: title,
   },
   area1: {
-    label: "area1",
+    label: labelArea1,
     color: colorArea1,
   },
   area2: {
-    label: "area2s",
+    label: labelArea2,
     color: colorArea2,
   },
 } satisfies ChartConfig
