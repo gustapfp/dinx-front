@@ -5,8 +5,13 @@ import { Sidebar } from "@/components/sidebar"
 import { Button } from "@/components/ui/button"
 import { useTheme } from "@/theme/theme-provider"
 import { PlaceholderCard } from "../shared/cards/place-holder-chart/placeHolderChart"
-import { ChartAreaInteractive } from "../shared/area-charts/areaCharts"
-import { dummyChartAreaData } from "../shared/area-charts/consts"
+import { ChartAreaInteractive } from "../shared/charts/area-charts/areaCharts"
+import { dummyChartAreaData } from "../shared/charts/area-charts/consts"
+import { ChartPieDonut } from "../shared/charts/pie-chart/pieChart"
+import {
+  dummyPieChartDataExpenses,
+  dummyPieChartDataIncome,
+} from "../shared/charts/pie-chart/consts"
 import { dummyTableData } from "./simple-table/consts"
 import { DashboardTable } from "./simple-table/dashboardTable"
 import type { dashboardTableData } from "./simple-table/types"
@@ -36,15 +41,15 @@ type HeaderProps = {
 function Header({ sidebarCollapsed, onToggleSidebar }: HeaderProps) {
   const { theme, toggleTheme } = useTheme()
 
-  const isDark = theme === "dark"
+  const isDark = theme === 'dark'
 
   return (
     <header className="flex h-16 items-center justify-between border-b px-6">
       <div className="flex items-center gap-2">
         <Button
-          variant={sidebarCollapsed ? "default" : "outline"}
+          variant={sidebarCollapsed ? 'default' : 'outline'}
           size="icon"
-          aria-label={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+          aria-label={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
           onClick={onToggleSidebar}
         >
           <PanelLeft className="h-4 w-4" />
@@ -56,20 +61,15 @@ function Header({ sidebarCollapsed, onToggleSidebar }: HeaderProps) {
             High-level view of your finances.
           </p>
         </div>
-
       </div>
-        <Button
-          variant="outline"
-          size="icon"
-          aria-label="Toggle theme"
-          onClick={toggleTheme}
-        >
-          {isDark ? (
-            <Sun className="h-4 w-4" />
-          ) : (
-            <Moon className="h-4 w-4" />
-          )}
-        </Button>
+      <Button
+        variant="outline"
+        size="icon"
+        aria-label="Toggle theme"
+        onClick={toggleTheme}
+      >
+        {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+      </Button>
     </header>
   )
 }
@@ -97,11 +97,13 @@ function DashboardShell() {
           />
         </div>
         <div className="rounded-xl border bg-card p-3 text-card-foreground">
-          <DashboardTable data={dummyTableData as dashboardTableData[]}/>
+          <DashboardTable data={dummyTableData as dashboardTableData[]} />
         </div>
+      </div>
+      <div className="grid gap-4 lg:grid-cols-2">
+        <ChartPieDonut data={dummyPieChartDataIncome} title="Income" />
+        <ChartPieDonut data={dummyPieChartDataExpenses} title="Expenses" />
       </div>
     </section>
   )
 }
-
-
