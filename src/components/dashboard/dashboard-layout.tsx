@@ -5,8 +5,11 @@ import { Sidebar } from "@/components/sidebar"
 import { Button } from "@/components/ui/button"
 import { useTheme } from "@/theme/theme-provider"
 import { PlaceholderCard } from "../shared/cards/place-holder-chart/placeHolderChart"
-import { ChartAreaInteractive } from "../shared/area-charts/AreaCharts"
+import { ChartAreaInteractive } from "../shared/area-charts/areaCharts"
 import { dummyChartAreaData } from "../shared/area-charts/consts"
+import { dummyTableData } from "./simple-table/consts"
+import { DashboardTable } from "./simple-table/dashboardTable"
+import type { dashboardTableData } from "./simple-table/types"
 
 export function DashboardLayout() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
@@ -93,11 +96,8 @@ function DashboardShell() {
             labelArea2="Expenses"
           />
         </div>
-        <div className="rounded-xl border bg-card p-4 text-card-foreground">
-          <h2 className="text-sm font-medium">Upcoming payments</h2>
-          <div className="mt-4 space-y-3 text-sm text-muted-foreground">
-            <p>No payments scheduled.</p>
-          </div>
+        <div className="rounded-xl border bg-card p-3 text-card-foreground">
+          <DashboardTable data={dummyTableData as dashboardTableData[]}/>
         </div>
       </div>
     </section>
