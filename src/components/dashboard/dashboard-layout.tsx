@@ -4,6 +4,9 @@ import { Moon, PanelLeft, Sun } from "lucide-react"
 import { Sidebar } from "@/components/sidebar"
 import { Button } from "@/components/ui/button"
 import { useTheme } from "@/theme/theme-provider"
+import { PlaceholderCard } from "../shared/cards/placeHolderchart/placeHolderChart"
+import { ChartAreaInteractive } from "../shared/area-charts/AreaCharts"
+import { dummyChartAreaData } from "../shared/area-charts/consts"
 
 export function DashboardLayout() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
@@ -72,16 +75,16 @@ function DashboardShell() {
   return (
     <section className="flex flex-1 flex-col gap-6 bg-muted/40 px-6 py-6">
       <div className="grid gap-4 md:grid-cols-4">
-        <PlaceholderCard title="Total Balance" value="$124,500.00" />
-        <PlaceholderCard title="Monthly Expenses" value="$8,420.00" />
-        <PlaceholderCard title="Investments" value="$65,300.00" />
+        <PlaceholderCard title="Net Worth" value="$124,500.00" />
+        <PlaceholderCard title="Monthly Total Income" value="$8,420.00" />
+        <PlaceholderCard title="Monthly Total Expenses" value="$65,300.00" />
         <PlaceholderCard title="Savings Rate" value="32%" />
       </div>
 
       <div className="grid gap-4 lg:grid-cols-3">
         <div className="col-span-2 rounded-xl border bg-card p-4 text-card-foreground">
-          <h2 className="text-sm font-medium">Cashflow (Preview)</h2>
-          <div className="mt-4 h-48 rounded-lg bg-muted" />
+     
+          <ChartAreaInteractive data={dummyChartAreaData} title="Cashflow" description="Preview of your cashflow" colorArea1="green-800" colorArea2="red-800" />
         </div>
         <div className="rounded-xl border bg-card p-4 text-card-foreground">
           <h2 className="text-sm font-medium">Upcoming payments</h2>
@@ -94,18 +97,4 @@ function DashboardShell() {
   )
 }
 
-type PlaceholderCardProps = {
-  title: string
-  value: string
-}
-
-function PlaceholderCard({ title, value }: PlaceholderCardProps) {
-  return (
-    <div className="rounded-xl border bg-card p-4 text-card-foreground">
-      <p className="text-xs font-medium text-muted-foreground">{title}</p>
-      <p className="mt-3 text-xl font-semibold">{value}</p>
-      <div className="mt-4 h-10 rounded-md bg-muted" />
-    </div>
-  )
-}
 
