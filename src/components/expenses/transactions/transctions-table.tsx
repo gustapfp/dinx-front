@@ -1,10 +1,9 @@
-import React, { useEffect, useMemo, type ReactNode } from 'react'
+import { useEffect, useMemo, type ReactNode } from 'react'
 import {
   ChevronLeft,
   ChevronRight,
   ChevronsLeft,
   ChevronsRight,
-  type LucideIcon,
 } from 'lucide-react'
 import { cn, getPageNumbers } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -64,6 +63,8 @@ export interface PaginatedTableProps<T> {
   cardClassName?: string
   /** When true, resets to page 1 when data length changes (e.g. after filter). Set to false if you sync page externally. */
   clampPageWhenDataChanges?: boolean
+  /** Optional custom footer row rendered at the end of the table body (e.g. totals). */
+  footerRow?: ReactNode
 }
 
 export default function TransctionsTable<T>({
@@ -82,6 +83,7 @@ export default function TransctionsTable<T>({
   className,
   cardClassName,
   clampPageWhenDataChanges = true,
+  footerRow,
 }: PaginatedTableProps<T>) {
   const { page, setPage, perPage, setPerPage } = pagination
 
@@ -171,6 +173,7 @@ export default function TransctionsTable<T>({
                       </TableRow>
                     )
                   })}
+                  {footerRow}
                 </TableBody>
               </Table>
 
