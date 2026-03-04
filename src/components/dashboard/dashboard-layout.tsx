@@ -1,20 +1,10 @@
 import { useState } from 'react'
 import { Moon, PanelLeft, Sun } from 'lucide-react'
 
-import { Sidebar } from '@/components/sidebar'
+import { Sidebar } from '@/components/sidebar/sidebar'
 import { Button } from '@/components/ui/button'
 import { useTheme } from '@/theme/theme-provider'
-import { PlaceholderCard } from '../shared/cards/place-holder-chart/placeHolderCard'
-import { ChartAreaInteractive } from '../shared/charts/area-charts/areaCharts'
-import { dummyChartAreaData } from '../shared/charts/area-charts/consts'
-import { ChartPieDonut } from '../shared/charts/pie-chart/pieChart'
-import {
-  dummyPieChartDataExpenses,
-  dummyPieChartDataIncome,
-} from '../shared/charts/pie-chart/consts'
-import { dummyTableData } from './simple-table/consts'
-import { DashboardTable } from './simple-table/dashboardTable'
-import type { dashboardTableData } from './simple-table/types'
+import { Outlet } from 'react-router'
 
 export function DashboardLayout() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
@@ -27,7 +17,7 @@ export function DashboardLayout() {
           sidebarCollapsed={sidebarCollapsed}
           onToggleSidebar={() => setSidebarCollapsed((prev) => !prev)}
         />
-        <DashboardShell />
+        <Outlet />
       </main>
     </div>
   )
@@ -57,7 +47,9 @@ function Header({ sidebarCollapsed, onToggleSidebar }: HeaderProps) {
         </Button>
 
         <div className="hidden min-w-0 flex-col text-left sm:flex">
-          <h1 className="truncate text-sm font-semibold tracking-tight">Overview</h1>
+          <h1 className="truncate text-sm font-semibold tracking-tight">
+            Overview
+          </h1>
           <p className="truncate text-xs text-muted-foreground">
             High-level view of your finances.
           </p>
@@ -73,49 +65,5 @@ function Header({ sidebarCollapsed, onToggleSidebar }: HeaderProps) {
         {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
       </Button>
     </header>
-  )
-}
-
-function DashboardShell() {
-  return (
-    <section className="flex flex-1 flex-col gap-4 bg-muted/40 px-4 py-4 sm:gap-5 sm:px-5 sm:py-5 md:gap-6 md:px-6 md:py-6">
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
-        <PlaceholderCard title="Net Worth" value="$124,500.00" />
-        <PlaceholderCard title="Monthly Total Income" value="$8,420.00" />
-        <PlaceholderCard title="Monthly Total Expenses" value="$65,300.00" />
-        <PlaceholderCard title="Savings Rate" value="32%" />
-      </div>
-
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-4">
-        <div className="min-w-0 lg:col-span-2">
-          <ChartAreaInteractive
-            data={dummyChartAreaData}
-            title="Cashflow"
-            description="Preview of your cashflow"
-            colorArea1="oklch(44.8% 0.119 151.328)"
-            colorArea2="oklch(50.5% 0.213 27.518)"
-            labelArea1="Income"
-            labelArea2="Expenses"
-          />
-        </div>
-        <div className="min-w-0 rounded-xl border bg-card p-3 shadow-sm text-card-foreground">
-          <DashboardTable data={dummyTableData as dashboardTableData[]} />
-        </div>
-      </div>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <ChartPieDonut
-          data={dummyPieChartDataIncome}
-          title="Income"
-          subtitle="Income breakdown from the last 30 days"
-          colors={['#4ade80', '#22c55e', '#16a34a', '#15803d', '#166534']}
-        />
-        <ChartPieDonut
-          data={dummyPieChartDataExpenses}
-          title="Expenses"
-          subtitle="Expenses breakdown from the last 30 days"
-          colors={['#f87171', '#ef4444', '#dc2626', '#b91c1c', '#991b1b']}
-        />
-      </div>
-    </section>
   )
 }
