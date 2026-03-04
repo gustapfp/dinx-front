@@ -1,5 +1,5 @@
-import { TrendingUp } from "lucide-react"
-import { Bar, BarChart, CartesianGrid, Cell, XAxis } from "recharts"
+import { TrendingUp } from 'lucide-react'
+import { Bar, BarChart, CartesianGrid, Cell, XAxis } from 'recharts'
 
 import {
   Card,
@@ -8,23 +8,23 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from '@/components/ui/card'
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
   type ChartConfig,
-} from "@/components/ui/chart"
+} from '@/components/ui/chart'
 
 const CHART_COLORS = [
-  "var(--chart-1)",
-  "var(--chart-2)",
-  "var(--chart-3)",
-  "var(--chart-4)",
-  "var(--chart-5)",
+  'var(--chart-1)',
+  'var(--chart-2)',
+  'var(--chart-3)',
+  'var(--chart-4)',
+  'var(--chart-5)',
 ] as const
 
-export const description = "A bar chart"
+export const description = 'A bar chart'
 
 export type BarChartSeries<T> = {
   dataKey: keyof T & string
@@ -42,6 +42,7 @@ export type BarChartProps<T extends Record<string, unknown>> = {
   footer?: React.ReactNode
   barRadius?: number
   barColorKey?: keyof T & string
+  chartClassName?: string
 }
 
 function buildChartConfig<T extends Record<string, unknown>>(
@@ -70,6 +71,7 @@ export function BarChartCard<T extends Record<string, unknown>>(
     footer,
     barRadius = 8,
     barColorKey,
+    chartClassName,
   } = props
 
   const chartConfig = buildChartConfig(series)
@@ -81,7 +83,7 @@ export function BarChartCard<T extends Record<string, unknown>>(
         <CardDescription>{descriptionProp}</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
+        <ChartContainer config={chartConfig} className={chartClassName}>
           <BarChart accessibilityLayer data={data}>
             <CartesianGrid vertical={false} />
             <XAxis
@@ -102,9 +104,7 @@ export function BarChartCard<T extends Record<string, unknown>>(
                 <Bar
                   key={s.dataKey}
                   dataKey={s.dataKey}
-                  fill={
-                    barColorKey ? undefined : `var(--color-${s.dataKey})`
-                  }
+                  fill={barColorKey ? undefined : `var(--color-${s.dataKey})`}
                   radius={barRadius}
                 >
                   {barColorKey
@@ -134,12 +134,12 @@ export function BarChartCard<T extends Record<string, unknown>>(
 }
 
 const defaultChartData = [
-  { month: "January", desktop: 186 },
-  { month: "February", desktop: 305 },
-  { month: "March", desktop: 237 },
-  { month: "April", desktop: 73 },
-  { month: "May", desktop: 209 },
-  { month: "June", desktop: 214 },
+  { month: 'January', desktop: 186 },
+  { month: 'February', desktop: 305 },
+  { month: 'March', desktop: 237 },
+  { month: 'April', desktop: 73 },
+  { month: 'May', desktop: 209 },
+  { month: 'June', desktop: 214 },
 ]
 
 export function ChartBarDefault() {
@@ -150,7 +150,7 @@ export function ChartBarDefault() {
       data={defaultChartData}
       xKey="month"
       series={[
-        { dataKey: "desktop", label: "Desktop", color: "var(--chart-1)" },
+        { dataKey: 'desktop', label: 'Desktop', color: 'var(--chart-1)' },
       ]}
       footer={
         <>
