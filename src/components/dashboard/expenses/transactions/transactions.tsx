@@ -172,11 +172,26 @@ export function Transactions() {
         title="Expenses"
         description="Expenses breakdown from the last 30 days"
         data={[
-          { category: 'Groceries', amount: 186 },
-          { category: 'Rent', amount: 305 },
-          { category: 'Utilities', amount: 237 },
-          { category: 'Entertainment', amount: 73 },
-          { category: 'Health', amount: 209 },
+          {
+            category: 'Rent',
+            amount: 305,
+            color: 'oklch(53.2% 0.157 131.589)',
+          },
+          {
+            category: 'Utilities',
+            amount: 237,
+            color: 'oklch(54.6% 0.245 262.881)',
+          },
+          {
+            category: 'Entertainment',
+            amount: 73,
+            color: 'oklch(50.5% 0.213 27.518)',
+          },
+          {
+            category: 'Health',
+            amount: 209,
+            color: 'oklch(29.1% 0.149 302.717)',
+          },
         ]}
         xKey="category"
         series={[

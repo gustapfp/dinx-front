@@ -76,12 +76,12 @@ const distributionCategories = [
 
 export default function Investments() {
   return (
-    <>
+    <section className="flex flex-1 flex-col gap-4  px-4 py-4 sm:gap-5 sm:px-5 sm:py-5 md:gap-6 md:px-6 md:py-6">
       <SectionHeader
         title="Investments"
         description="Overview of your investments"
       />
-      <div className="flex flex-col gap-4 mt-8 px-8">
+      <div className="flex flex-col gap-4 mt-8 ">
         <ChartBarNegative
           data={investmentData}
           title="Investment Performance"
@@ -89,7 +89,7 @@ export default function Investments() {
         />
       </div>
 
-      <div className="flex flex-row w-full justify-between px-8 my-8">
+      <div className="flex flex-row w-full justify-between  my-8">
         <InvestmentDistributionChart
           data={investmentDistributionData}
           title="Investment Distribution"
@@ -113,6 +113,6 @@ export default function Investments() {
       <div className="px-8 mb-8">
         <InvestmentDistributionGrid categories={distributionCategories} />
       </div>
-    </>
+    </section>
   )
 }

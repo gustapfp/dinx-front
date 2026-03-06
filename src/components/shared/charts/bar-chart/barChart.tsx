@@ -17,11 +17,11 @@ import {
 } from '@/components/ui/chart'
 
 const CHART_COLORS = [
-  'var(--chart-1)',
-  'var(--chart-2)',
-  'var(--chart-3)',
-  'var(--chart-4)',
-  'var(--chart-5)',
+  'oklch(66.6% 0.179 58.318)',
+  'oklch(53.2% 0.157 131.589)',
+  'oklch(54.6% 0.245 262.881)',
+  'oklch(50.5% 0.213 27.518)',
+  'oklch(29.1% 0.149 302.717)',
 ] as const
 
 export const description = 'A bar chart'
