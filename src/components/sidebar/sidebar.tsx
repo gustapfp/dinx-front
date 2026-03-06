@@ -12,7 +12,7 @@ import { SidebarNavItem } from './sidebar-nav-item'
 
 const primaryItems: SidebarItem[] = [
   { label: 'Overview', icon: BarChart3, to: '/' },
-  { label: 'Analytics', icon: LineChart, to: '/analytics' },
+  // { label: 'Analytics', icon: LineChart, to: '/analytics' },
   { label: 'Expenses', icon: CreditCard, to: '/expenses' },
   { label: 'Investments', icon: PiggyBank, to: '/investments' },
 ]
