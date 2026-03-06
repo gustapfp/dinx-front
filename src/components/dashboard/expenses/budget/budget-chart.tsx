@@ -1,7 +1,7 @@
 'use client'
 
 import { TrendingUp } from 'lucide-react'
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts'
+import { Bar, BarChart, CartesianGrid, Cell, XAxis, YAxis } from 'recharts'
 
 import {
   Card,
@@ -19,6 +19,10 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from '@/components/ui/chart'
+import {
+  type ExpenseCategoryId,
+  getExpenseCategoryConfig,
+} from '@/components/dashboard/expenses/categories'
 
 export type BudgetIconKey =
   | 'groceries'
@@ -32,7 +36,7 @@ export type BudgetIconKey =
   | 'other'
 
 export type BudgetCategory = {
-  category: string
+  category: ExpenseCategoryId
   /** Total budget limit for this category. */
   limit: number
   /** How much of the budget has been used. */
@@ -61,14 +65,28 @@ const currencyFormatter = new Intl.NumberFormat('en-US', {
   currency: 'USD',
 })
 
+function darkenOklch(color: string, amount = 10): string {
+  const match = color.match(/oklch\(([\d.]+)%\s+([\d.]+)\s+([\d.]+)\)/)
+  if (!match) return color
+  const [, l, c, h] = match
+  const newL = Math.max(0, Number(l) - amount)
+  return `oklch(${newL}% ${c} ${h})`
+}
+
 export function BudgetChart({ data }: BudgetChartProps) {
   const chartData = data.map((item) => {
     const remaining = Math.max(item.limit - item.used, 0)
+    const config = getExpenseCategoryConfig(item.category)
+    const baseColor = config?.color ?? 'oklch(60% 0 0)'
+    const usedColor = darkenOklch(baseColor, 10)
+    const remainingColor = baseColor
     return {
       category: item.category,
       used: item.used,
       remaining,
       limit: item.limit,
+      usedColor,
+      remainingColor,
     }
   })
 
@@ -101,18 +119,19 @@ export function BudgetChart({ data }: BudgetChartProps) {
             />
             <ChartTooltip content={<ChartTooltipContent />} />
             <ChartLegend content={<ChartLegendContent />} />
-            <Bar
-              dataKey="used"
-              stackId="budget"
-              fill="var(--color-used)"
-              radius={[0, 0, 6, 6]}
-            />
-            <Bar
-              dataKey="remaining"
-              stackId="budget"
-              fill="var(--color-remaining)"
-              radius={[6, 6, 0, 0]}
-            />
+            <Bar dataKey="used" stackId="budget" radius={[0, 0, 6, 6]}>
+              {chartData.map((entry, index) => (
+                <Cell key={`used-${entry.category}-${index}`} fill={entry.usedColor} />
+              ))}
+            </Bar>
+            <Bar dataKey="remaining" stackId="budget" radius={[6, 6, 0, 0]}>
+              {chartData.map((entry, index) => (
+                <Cell
+                  key={`remaining-${entry.category}-${index}`}
+                  fill={entry.remainingColor}
+                />
+              ))}
+            </Bar>
           </BarChart>
         </ChartContainer>
       </CardContent>

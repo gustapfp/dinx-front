@@ -1,40 +1,35 @@
 import { useState } from 'react'
 
 import { BudgetChart, type BudgetCategory } from './budget-chart'
+import {
+  type ExpenseCategoryId,
+  EXPENSE_CATEGORIES,
+} from '@/components/dashboard/expenses/categories'
 import { BudgetTable } from './budget-table'
 
-const initialBudgets: BudgetCategory[] = [
-  {
-    category: 'Groceries',
-    limit: 400,
-    used: 186,
-    icon: 'groceries',
-  },
-  {
-    category: 'Rent',
-    limit: 1200,
-    used: 1200,
-    icon: 'rent',
-  },
-  {
-    category: 'Utilities',
-    limit: 250,
-    used: 146,
-    icon: 'utilities',
-  },
-  {
-    category: 'Entertainment',
-    limit: 150,
-    used: 94,
-    icon: 'entertainment',
-  },
-  {
-    category: 'Health',
+const initialBudgets: BudgetCategory[] = (
+  [
+    'Saúde',
+    'Moradia',
+    'Mercado',
+    'Educação',
+    'Imposto',
+    'Doação',
+    'Transporte',
+    'Viagem',
+    'Entretenimento',
+    'Ferramentas de Trabalho',
+    'Fatura Cartão de Crédito',
+  ] as ExpenseCategoryId[]
+).map((id) => {
+  const config = EXPENSE_CATEGORIES[id]
+  return {
+    category: config.label,
     limit: 300,
-    used: 209,
-    icon: 'health',
-  },
-]
+    used: 0,
+    icon: 'other',
+  }
+})
 
 export function Budgets() {
   const [budgets, setBudgets] = useState<BudgetCategory[]>(initialBudgets)
@@ -56,9 +51,6 @@ export function Budgets() {
         }}
         totalBudget={totalBudget}
         onChangeTotalBudget={setTotalBudget}
-        onAddCategory={(category, limit, icon) => {
-          setBudgets((prev) => [...prev, { category, limit, used: 0, icon }])
-        }}
       />
     </div>
   )
