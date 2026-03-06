@@ -1,5 +1,3 @@
-'use client'
-
 import { TrendingUp } from 'lucide-react'
 import { Bar, BarChart, CartesianGrid, Cell, XAxis, YAxis } from 'recharts'
 
@@ -121,7 +119,10 @@ export function BudgetChart({ data }: BudgetChartProps) {
             <ChartLegend content={<ChartLegendContent />} />
             <Bar dataKey="used" stackId="budget" radius={[0, 0, 6, 6]}>
               {chartData.map((entry, index) => (
-                <Cell key={`used-${entry.category}-${index}`} fill={entry.usedColor} />
+                <Cell
+                  key={`used-${entry.category}-${index}`}
+                  fill={entry.usedColor}
+                />
               ))}
             </Bar>
             <Bar dataKey="remaining" stackId="budget" radius={[6, 6, 0, 0]}>
