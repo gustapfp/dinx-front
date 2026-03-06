@@ -9,10 +9,15 @@ import { ChartPieDonut } from '@/components/shared/charts/pie-chart/pieChart'
 import { dummyTableData } from './simple-table/consts'
 import { DashboardTable } from './simple-table/dashboardTable'
 import type { dashboardTableData } from './simple-table/types'
+import { SectionHeader } from '@/components/shared/section-header/sectionHeader'
 
 export function DashboardShell() {
   return (
-    <section className="flex flex-1 flex-col gap-4 bg-muted/40 px-4 py-4 sm:gap-5 sm:px-5 sm:py-5 md:gap-6 md:px-6 md:py-6">
+    <section className="flex flex-1 flex-col gap-4  px-4 py-4 sm:gap-5 sm:px-5 sm:py-5 md:gap-6 md:px-6 md:py-6">
+      <SectionHeader
+        title="Dashboard"
+        description="Overview of your financial situation"
+      />
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
         <PlaceholderCard title="Net Worth" value="$124,500.00" />
         <PlaceholderCard title="Monthly Total Income" value="$8,420.00" />
