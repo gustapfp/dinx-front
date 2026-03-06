@@ -1,7 +1,8 @@
 
+import * as React from 'react'
 import type { LucideIcon } from 'lucide-react'
 import { TrendingUp } from 'lucide-react'
-import { Pie, PieChart } from 'recharts'
+import { Cell, Pie, PieChart, Sector, type SectorProps } from 'recharts'
 
 import {
   Card,
@@ -34,6 +35,27 @@ function slugify(str: string): string {
     .toLowerCase()
     .replace(/\s+/g, '-')
     .replace(/[^a-z0-9-]/g, '')
+}
+
+// Renders the hovered segment with a slightly larger outer radius
+function ActiveShape(props: SectorProps) {
+  const {
+    cx, cy,
+    innerRadius, outerRadius = 0,
+    startAngle, endAngle,
+    fill,
+  } = props
+  return (
+    <Sector
+      cx={cx}
+      cy={cy}
+      innerRadius={innerRadius}
+      outerRadius={outerRadius + 8}
+      startAngle={startAngle}
+      endAngle={endAngle}
+      fill={fill}
+    />
+  )
 }
 
 export type InvestmentDistributionItem = {
@@ -81,13 +103,14 @@ export function InvestmentDistributionChart({
   className,
   chartClassName = 'mx-auto aspect-square max-h-[250px]',
 }: InvestmentDistributionChartProps) {
+  const [activeIndex, setActiveIndex] = React.useState<number | undefined>(undefined)
+
   const chartData = data.map((item) => {
     const key = slugify(item.name)
     return {
       name: item.name,
       value: item.value,
-      browser: key,          // recharts nameKey for the legend
-      fill: `var(--color-${key})`,
+      browser: key,
     }
   })
 
@@ -121,7 +144,18 @@ export function InvestmentDistributionChart({
               dataKey="value"
               nameKey="name"
               innerRadius={innerRadius}
-            />
+              activeIndex={activeIndex}
+              activeShape={ActiveShape}
+              onMouseEnter={(_, index) => setActiveIndex(index)}
+              onMouseLeave={() => setActiveIndex(undefined)}
+            >
+              {chartData.map((_, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={colors[index % colors.length]}
+                />
+              ))}
+            </Pie>
             <ChartLegend
               content={<ChartLegendContent nameKey="browser" />}
               className="w-full gap-3 *:basis-1/4 *:justify-center"
